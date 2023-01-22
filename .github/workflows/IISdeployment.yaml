@@ -33,6 +33,4 @@ jobs:
           name: myartif
           path: './output'
 
-        - name: verify artifact created
-          run: ls -l output
 
