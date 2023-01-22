@@ -3,7 +3,7 @@ name: Deploying .NET to IIS
 on: 
   push:
     branches:
-      -main 
+      -main
     workflow_dispatch:
 
 jobs:
