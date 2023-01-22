@@ -24,4 +24,5 @@ jobs:
       - name: publish dotnet 
         run: dotnet publish -o output
 
-    
+      - name: verify folder creation
+        run: ls -l
