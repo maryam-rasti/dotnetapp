@@ -25,4 +25,11 @@ jobs:
         run: dotnet publish -o output
 
       - name: verify folder creation
-        run: ls -l
+        run: ls
+
+      - name: upload action artifacts
+        uses: actions/upload-artifact@v2
+        with: 
+          name: myartif
+          path: './output'
+
