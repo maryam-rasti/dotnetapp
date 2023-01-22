@@ -20,3 +20,8 @@ jobs:
 
       - name: verify donet installation 
         run: dotnet --version
+
+      - Name: publish dotnet 
+        run: dotnet pulish -o output
+
+    
