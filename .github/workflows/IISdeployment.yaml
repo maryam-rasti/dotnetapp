@@ -36,6 +36,7 @@ jobs:
   deployment-dotnet-app:
     name: Deploy Dotnet App
     runs-on: ubuntu-18.04
+    needs: build-dotnet-app
     steps: 
 
       - uses: actions/checkout@v2
