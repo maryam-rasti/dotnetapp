@@ -46,7 +46,22 @@ jobs:
           name: myartif
           path: './output'
 
-      - run: ls 
+      - name: verify if downloaded
+        run: ls
+
+      - name: Deploy the build
+        uses: mdallasanta/ssh-scp-deploy@v1.2.0
+        with:
+          local: './output'                                                 
+          remote: 'C:\inetpub\wwwroot\'                                               
+          host: ${{secrets.HOST}}                                  
+          user: ${{secrets.USER}}
+          password: ${{secrets.PASSWORD}}
+          pre_upload: echo "This will be executed before the upload!"
+          post_upload: echo "This will be executed after the upload!"
+          ssh_options: -o StrictHostKeyChecking=no
+          scp_options: -v
+
 
 
 
