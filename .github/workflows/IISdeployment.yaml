@@ -1,66 +1,66 @@
-name: Deploying .NET to IIS
+# name: Deploying .NET to IIS
 
-on: 
-  push:
-    branches:
-      - main
-    workflow_dispatch:
+# on: 
+#   push:
+#     branches:
+#       - main
+#     workflow_dispatch:
 
-jobs:
-  build-dotnet-app:
-    name: Build Dotnet App
-    runs-on: ubuntu-18.04
-    steps: 
+# jobs:
+#   build-dotnet-app:
+#     name: Build Dotnet App
+#     runs-on: ubuntu-18.04
+#     steps: 
 
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.405'
+#       - uses: actions/checkout@v3
+#       - name: Setup .NET
+#         uses: actions/setup-dotnet@v3
+#         with:
+#           dotnet-version: '6.0.405'
 
-      - name: verify donet installation 
-        run: dotnet --version
+#       - name: verify donet installation 
+#         run: dotnet --version
 
-      - name: publish dotnet 
-        run: dotnet publish -o output
+#       - name: publish dotnet 
+#         run: dotnet publish -o output
 
-      - name: verify folder creation
-        run: ls
+#       - name: verify folder creation
+#         run: ls
 
-      - name: upload action artifacts
-        uses: actions/upload-artifact@v2
-        with: 
-          name: myartif
-          path: './output'
+#       - name: upload action artifacts
+#         uses: actions/upload-artifact@v2
+#         with: 
+#           name: myartif
+#           path: './output'
 
-  deployment-dotnet-app:
-    name: Deploy Dotnet App
-    runs-on: ubuntu-18.04
-    needs: build-dotnet-app
-    steps: 
+#   deployment-dotnet-app:
+#     name: Deploy Dotnet App
+#     runs-on: ubuntu-18.04
+#     needs: build-dotnet-app
+#     steps: 
 
-      - uses: actions/checkout@v2
-      - name: Download arifact 
-        uses: actions/download-artifact@v2
-        with:
-          name: myartif
-          path: './output'
+#       - uses: actions/checkout@v2
+#       - name: Download arifact 
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: myartif
+#           path: './output'
 
-      - name: verify if downloaded
-        run: ls
+#       - name: verify if downloaded
+#         run: ls
 
-      - name: Deploy the build
-        uses: mdallasanta/ssh-scp-deploy@v1.2.0
-        with:
-          local: './output/*'                                                 
-          remote: 'C:\inetpub\wwwroot\'                                               
-          host: ${{secrets.HOST}}                                  
-          user: ${{secrets.USER}}
-          password: ${{secrets.PASSWORD}}
-          pre_upload: echo "This will be executed before the upload!"
-          post_upload: echo "This will be executed after the upload!"
-          ssh_options: -o StrictHostKeyChecking=no
-          scp_options: -v
+#       - name: Deploy the build
+#         uses: mdallasanta/ssh-scp-deploy@v1.2.0
+#         with:
+#           local: './output/*'                                                 
+#           remote: 'C:\inetpub\wwwroot\'                                               
+#           host: ${{secrets.HOST}}                                  
+#           user: ${{secrets.USER}}
+#           password: ${{secrets.PASSWORD}}
+#           pre_upload: echo "This will be executed before the upload!"
+#           post_upload: echo "This will be executed after the upload!"
+#           ssh_options: -o StrictHostKeyChecking=no
+#           scp_options: -v
 
 
 
